@@ -1,82 +1,90 @@
-# 📚 Singly Linked List : Find the Middle Node of a Singly Linked List Using Recursion
+# 📝 Doubly Linked List: Search an Element
 
-This Python program demonstrates how to find the middle node of a singly linked list using recursion. The program calculates the middle element by utilizing two pointers, with one pointer moving one step at a time (slow) and the other moving two steps at a time (fast). When the fast pointer reaches the end of the list, the slow pointer will be at the middle node.
+This Python program demonstrates the implementation of a **Doubly Linked List** where you can insert elements at both the beginning and the end of the list. Additionally, it allows you to search for a specific element in the list.
+
+---
 
 ## 🎯 Aim
 
 To write a Python program that:
-- Creates a singly linked list.
-- Uses recursion to find the middle node of the list.
-- In case of an even number of nodes, it returns the second middle element.
+- Implements a **Doubly Linked List** with functions to insert elements at the beginning and the end of the list.
+- Implements a search function to check if a given element exists in the list.
+
+---
 
 ## 🧠 Algorithm
 
-1. **Node Class**: 
-   - Define a `Node` class to represent each node in the singly linked list. Each node has two attributes: `data` and `next`.
-   
-2. **LinkedList Class**:
-   - Define a `LinkedList` class that manages the linked list with methods to:
-     - `append(data)`: Add a new node to the end of the list.
-     - `get_middle_recursive(slow, fast)`: A recursive helper function to find the middle node using two pointers (slow and fast).
-     - `find_middle()`: A method to call the recursive function and return the middle node's data.
+1. **Step 1:** Define a class `Nodeq` with:
+   - `data` to store the node's value.
+   - `next` to store the reference to the next node.
+   - `prev` to store the reference to the previous node.
 
-3. **Input**:
-   - First, the program reads an integer `n`, representing the number of elements in the linked list.
-   - Then, it reads `n` space-separated integers to form the linked list.
+2. **Step 2:** Define a class `DoublyLinkedList` with:
+   - `head` to point to the first node.
 
-4. **Recursive Middle Finding**:
-   - The `get_middle_recursive` method uses two pointers to traverse the list:
-     - The `slow` pointer moves one step at a time.
-     - The `fast` pointer moves two steps at a time.
-   - When the `fast` pointer reaches the end, the `slow` pointer will be at the middle node.
+3. **Step 3:** In the `DoublyLinkedList` class, define methods:
+   - `insert_beginning(data)` to insert a node at the beginning.
+   - `insert_end(data)` to insert a node at the end.
+   - `search(data)` to search for an element in the list.
 
-5. **Output**:
-   - The program prints the middle element. If the list has an even number of nodes, it returns the second middle element.
+4. **Step 4:** Create an instance of `DoublyLinkedList`.
+   - Insert elements at the beginning and end.
+   - Search for specific elements.
 
 ---
 
 ## 💻 Program
 ```
-class Node:
-    def __init__(self, value):
-        self.data = value
+class Nodeq: 
+    def __init__(self, data): 
+        self.data = data 
         self.next = None
-      
-class LinkedList:
-  
-    def __init__(self):
-        self.head = None
-  
-    # create Node and make linked list
-    def push(self, new_data):
-        new_node = Node(new_data)
-        new_node.next = self.head
-        self.head = new_node
-          
-    def printMiddle(self):
-        slow=self.head
-        fast=self.head
-        
-        if not self.head:
-            print("empty")
-            return
-        
-        while fast and fast.next.next:
-            slow=slow.next.next
-            fast=fast.next.next.next
-            
-            print(slow.data)
-            
-llist = LinkedList() 
-for i in range(5):
-    value = input()
-    llist.push(value)
+        self.prev = None
 
-llist.printMiddle()
+class DoublyLinkedList: 
+
+    def __init__(self): 
+        self.head = None
+    def insert_beginning(self,data):
+        new_node = Nodeq(data)  
+        if(self.head == None): 
+            self.head = new_node     
+            return    
+        self.head.prev = new_node   
+        new_node.next = self.head   
+        self.head = new_node    
+
+    def insert_end(self, new_data): 
+        new_node = Nodeq(new_data) 
+        if self.head is None: 
+            new_node.prev = None
+            self.head = new_node 
+            return 
+        last = self.head 
+        while last.next: 
+            last = last.next
+        last.next = new_node 
+        new_node.prev = last 
+    def search(self,data):
+        current = self.head
+        while current:
+            if current.data == data:
+                return True
+            current = current.next
+        print("The given data doesnot exist:")
+        return False
+        
+
+Dllist = DoublyLinkedList() 
+Dllist.insert_beginning(2)
+Dllist.insert_end(0)
+Dllist.insert_end(1)
+print(Dllist.search(0)) 
+print(Dllist.search(3))
 ```
 
-## Sample Input & Output
-<img width="318" height="209" alt="image" src="https://github.com/user-attachments/assets/b6fb0c57-ea8b-4655-a5e8-04db0122fe38" />
+## Sample Output
+<img width="676" height="156" alt="image" src="https://github.com/user-attachments/assets/89b7e54a-8f39-482a-a2ea-7b605db6848f" />
 
 ## Result
 Thus,the program is executed successfully
